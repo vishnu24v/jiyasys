@@ -67,15 +67,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Floating Buttons in Viewport Corner */}
-      <div className="fixed bottom-6 right-6 flex flex-col gap-2 z-[1002]">
-        <button className="flex items-center gap-4 px-6 py-4 bg-black text-white rounded-lg text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-transform shadow-lg">
-          Buy template <ChevronRight size={14} />
-        </button>
-        <button className="flex items-center gap-4 px-6 py-4 bg-white text-black border border-black/5 rounded-lg text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-transform shadow-lg">
-          Made in Framer
-        </button>
-      </div>
     </section>
   );
 }
