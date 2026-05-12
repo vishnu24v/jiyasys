@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, ChevronUp, MoreHorizontal, Power, Volume2, Mail, ArrowLeft, MoreVertical } from 'lucide-react';
+import { MessageSquare, X, Send, ChevronUp, MoreHorizontal, Power, Volume2, Mail, ArrowLeft, MoreVertical, MessageCircleMore } from 'lucide-react';
 
 export default function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,8 +12,7 @@ export default function AIChatbot() {
   const [isTyping, setIsTyping] = useState(false);
   const [showEndConfirm, setShowEndConfirm] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const chatRef = useRef<HTMLDivElement>(null);
-
+  
   const initialBotMsg = "Hi, What Can I help You With Today?";
 
   const handleStartChat = () => {
@@ -67,17 +66,20 @@ export default function AIChatbot() {
       <motion.div
         drag
         dragMomentum={false}
+        dragConstraints={{ top: -window?.innerHeight + 160, left: -window?.innerWidth + 400, right: 0, bottom: 0 }}
         className="relative"
       >
-        {/* Toggle Button (Always Visible) */}
-        <motion.button
-          onClick={() => { setIsOpen(!isOpen); setShowPopup(false); }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="absolute bottom-0 right-0 w-16 h-16 bg-[#4a1a5a] rounded-full shadow-2xl flex items-center justify-center text-white cursor-pointer z-50"
-        >
-          {isOpen ? <ChevronUp size={28} /> : <MessageSquare size={28} />}
-        </motion.button>
+        {/* Toggle Button (When Closed: Message Icon) */}
+        {!isOpen && (
+          <motion.button
+            onClick={() => { setIsOpen(true); setShowPopup(false); }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="absolute bottom-0 right-0 w-16 h-16 bg-[#4a1a5a] rounded-full shadow-2xl flex items-center justify-center text-white cursor-pointer z-50"
+          >
+            <MessageCircleMore size={32} />
+          </motion.button>
+        )}
 
         {/* Chat Window */}
         <AnimatePresence>
@@ -86,10 +88,18 @@ export default function AIChatbot() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="absolute bottom-20 right-0 w-[380px] h-[600px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col border border-black/5 rounded-l-[32px] rounded-r-none"
+              className="absolute bottom-0 right-0 w-[380px] h-[380px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col border border-black/5 rounded-l-[32px] rounded-r-none"
             >
+              {/* Toggle Button (When Open: ChevronUp at Top) */}
+              <button 
+                onClick={() => setIsOpen(false)}
+                className="absolute top-4 right-4 w-10 h-10 bg-[#4a1a5a] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform z-[60]"
+              >
+                <ChevronUp size={24} />
+              </button>
+
               {/* Header - Purple */}
-              <div className="p-6 bg-[#4a1a5a] text-white flex items-center justify-between">
+              <div className="p-6 bg-[#4a1a5a] text-white flex items-center justify-between pr-16">
                 <div className="flex items-center gap-4">
                   {stage === 'chat' && (
                     <button onClick={() => setStage('list')} className="p-2 hover:bg-white/10 rounded-full transition-colors">
@@ -115,7 +125,7 @@ export default function AIChatbot() {
               </div>
 
               {/* Body */}
-              <div className="flex-grow overflow-y-auto p-6 bg-gray-50 flex flex-col">
+              <div className="flex-grow overflow-y-auto p-6 bg-gray-50 flex flex-col custom-scrollbar">
                 {stage === 'list' ? (
                   <button 
                     onClick={handleStartChat}
@@ -183,70 +193,44 @@ export default function AIChatbot() {
 
               {/* Footer / Input Area */}
               {stage === 'chat' && (
-                <div className="p-6 bg-white border-t border-black/5 relative">
+                <div className="p-6 bg-white border-t border-black/5 relative shrink-0">
                   <div className="flex items-center gap-3">
                     <input 
                       type="text" 
                       placeholder="Type a message..." 
-                      className="flex-grow text-sm font-medium outline-none"
+                      className="flex-grow text-sm font-medium outline-none bg-transparent"
                     />
                     
                     <div className="flex items-center gap-4 text-gray-400 relative">
-                      {/* Settings Trigger */}
                       <div className="relative">
                         <button onClick={() => setShowSettings(!showSettings)} className="hover:text-black transition-colors">
                           <MoreVertical size={20} />
                         </button>
-                        
                         <AnimatePresence>
                           {showSettings && (
-                            <motion.div 
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: 10 }}
-                              className="absolute bottom-full right-0 mb-4 w-48 bg-white rounded-2xl shadow-2xl border border-black/5 overflow-hidden z-20"
-                            >
-                              <button className="w-full p-4 flex items-center gap-3 text-sm font-bold text-black hover:bg-gray-50 border-b border-black/5">
-                                <Volume2 size={16} /> Mute
-                              </button>
-                              <button className="w-full p-4 flex items-center gap-3 text-sm font-bold text-black hover:bg-gray-50">
-                                <Mail size={16} /> Send email
-                              </button>
+                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="absolute bottom-full right-0 mb-4 w-48 bg-white rounded-2xl shadow-2xl border border-black/5 overflow-hidden z-20">
+                              <button className="w-full p-4 flex items-center gap-3 text-sm font-bold text-black hover:bg-gray-50 border-b border-black/5"><Volume2 size={16} /> Mute</button>
+                              <button className="w-full p-4 flex items-center gap-3 text-sm font-bold text-black hover:bg-gray-50"><Mail size={16} /> Send email</button>
                             </motion.div>
                           )}
                         </AnimatePresence>
                       </div>
-
-                      {/* Power / End Chat Trigger */}
-                      <button 
-                        onClick={() => setShowEndConfirm(true)}
-                        className="hover:text-red-500 transition-colors"
-                      >
-                        <Power size={20} />
-                      </button>
+                      <button onClick={() => setShowEndConfirm(true)} className="hover:text-red-500 transition-colors"><Power size={20} /></button>
                     </div>
                   </div>
 
-                  {/* End Chat Confirmation */}
                   <AnimatePresence>
                     {showEndConfirm && (
-                      <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="absolute inset-0 bg-white/90 backdrop-blur-sm z-30 flex items-center justify-center p-8 text-center"
-                      >
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-white/90 backdrop-blur-sm z-30 flex items-center justify-center p-8 text-center">
                         <div className="space-y-6">
-                          <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto">
-                            <Power size={32} />
-                          </div>
+                          <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto"><Power size={32} /></div>
                           <div>
                             <h4 className="text-xl font-bold text-black mb-2">End chat</h4>
-                            <p className="text-sm text-black/50 font-medium">Are you sure you want to end this chat session?</p>
+                            <p className="text-sm text-black/50 font-medium">Are you sure?</p>
                           </div>
                           <div className="flex gap-4">
-                            <button onClick={() => setShowEndConfirm(false)} className="flex-1 py-4 bg-gray-100 text-black font-bold text-sm rounded-2xl">Cancel</button>
-                            <button onClick={endChat} className="flex-1 py-4 bg-red-600 text-white font-bold text-sm rounded-2xl">End</button>
+                            <button onClick={() => setShowEndConfirm(false)} className="flex-1 py-3 bg-gray-100 text-black font-bold text-sm rounded-xl">No</button>
+                            <button onClick={endChat} className="flex-1 py-3 bg-red-600 text-white font-bold text-sm rounded-xl">End</button>
                           </div>
                         </div>
                       </motion.div>
@@ -258,6 +242,8 @@ export default function AIChatbot() {
           )}
         </AnimatePresence>
       </motion.div>
-    </div>
+    </div >
+  );
+}
   );
 }
