@@ -1,0 +1,223 @@
+================================================================================
+JIYASYS PROJECT OVERVIEW & ARCHITECTURE MAP
+================================================================================
+Last Updated: 2026-05-11
+Project Status: Initial Architecture & Homepage Setup
+Tech Stack: Next.js 15, TypeScript, Tailwind CSS 4, GSAP, Framer Motion, Lenis.
+
+--------------------------------------------------------------------------------
+CORE DIRECTORY STRUCTURE
+--------------------------------------------------------------------------------
+/src/app         -> Main application routes and global layouts.
+/src/components  -> Reusable UI components and page sections.
+/src/hooks       -> Custom React hooks for animations and logic.
+/src/lib         -> Utility functions and external configurations.
+/src/types       -> TypeScript interface and type definitions.
+/backend         -> Node.js/Express server logic and MongoDB models.
+
+--------------------------------------------------------------------------------
+FILE-BY-FILE BREAKDOWN
+--------------------------------------------------------------------------------
+
+1. [src/app/layout.tsx]
+   - Purpose: Root layout configuration.
+   - Features: Implements global fonts (Inter & Outfit), Custom Cursor, and Smooth Scrolling (Lenis).
+   - Tools: Next.js Metadata API, Google Fonts.
+
+2. [src/app/globals.css]
+   - Purpose: Global styling and theme configuration.
+   - Features: Defines the "Futuristic Dark Luxury" theme using Tailwind 4 CSS variables.
+   - Design: Deep black background (#030303), Electric Blue/Purple/Cyan accents, Noise textures.
+
+3. [src/components/shared/SmoothScroll.tsx]
+   - Purpose: Global smooth scrolling wrapper.
+   - Tools: Lenis (React version).
+   - Feel: Premium, inertial scrolling effect across the entire site.
+
+4. [src/components/shared/CustomCursor.tsx]
+   - Purpose: Interactive UI element.
+   - Tools: GSAP.
+   - Features: Magnetic-style follower, reacts to links/buttons by scaling up.
+
+5. [src/components/shared/Navbar.tsx]
+   - Purpose: Main navigation and branding.
+   - Features: Animated Mega Menu with categories (About, Services, Solutions).
+   - Tools: Framer Motion (AnimatePresence), Lucide React Icons.
+
+6. [src/components/shared/Footer.tsx]
+   - Purpose: Site-wide bottom navigation.
+   - Features: 4-column layout, Social icons, Glassmorphism blur effects.
+   - Tools: Lucide React.
+
+7. [src/components/sections/Hero.tsx]
+   - Purpose: Primary landing section of the Home page.
+   - Features: Cinematic text reveal, animated background gradients, primary CTAs.
+   - Tools: Framer Motion.
+
+8. [src/components/sections/TrustedBy.tsx]
+   - Purpose: Social proof and credibility.
+   - Features: Infinite scrolling logo marquee.
+   - Tools: Framer Motion (Keyframes).
+
+9. [src/components/sections/Services.tsx]
+   - Purpose: Showcasing core capabilities.
+   - Features: Interactive glass-card layout, hover-glow effects.
+   - Tools: Framer Motion, Tailwind Utility Classes.
+
+10. [src/components/sections/Industries.tsx]
+    - Purpose: Domain expertise showcase.
+    - Features: Modern Bento Grid layout with hover-scale images.
+    - Tools: Framer Motion, CSS Grid.
+
+11. [backend/server.js]
+    - Purpose: Backend entry point.
+    - Tools: Express.js, Mongoose (MongoDB).
+    - Features: Basic API route and database connection logic.
+
+--------------------------------------------------------------------------------
+TECHNOLOGIES & TOOLS USED
+--------------------------------------------------------------------------------
+- Next.js 15: Latest framework for speed and SEO.
+- Tailwind CSS 4: Next-gen styling with CSS-variable based configuration.
+- GSAP: High-performance animations for the cursor.
+- Framer Motion: Smooth, declarative entrance and hover animations.
+- Lenis: High-end smooth scrolling experience.
+- Lucide React: Clean, futuristic SVG icons.
+- MongoDB: Scalable NoSQL database for enterprise data.
+================================================================================
+
+--------------------------------------------------------------------------------
+UPDATE: 2026-05-11 | FIX: BUILD ERRORS IN FOOTER SOCIAL ICONS
+--------------------------------------------------------------------------------
+1. [src/components/shared/Footer.tsx]
+   - Issue: Build errors due to missing social brand icons (Github, Linkedin, Twitter) in lucide-react.
+   - Fix: Replaced missing brand icons with stable generic icons:
+     * Twitter -> Send
+     * Linkedin -> Briefcase
+     * Github -> Globe
+   - Files Affected: Footer.tsx (Imports & Usage).
+--------------------------------------------------------------------------------
+UPDATE: 2026-05-11 | FULL HOME PAGE CONTENT OVERHAUL (SOURCE THEME)
+--------------------------------------------------------------------------------
+1. [src/app/page.tsx]
+   - Reassembled with new narrative flow: Hero -> Intro -> Services -> Process -> Results -> Pricing -> Testimonials -> Industries -> Experts.
+   - Updated all text content to English (No Hindi used).
+
+2. [src/components/sections/Hero.tsx]
+   - Content: "Designing intelligent systems for teams that move fast."
+   - Feature: Added 4.9/5 Trust metrics.
+
+3. [src/components/sections/Services.tsx]
+   - Content: Updated to 5 core services (Workflow, Custom AI, Data Infra, Predictive Analytics, AI Strategy).
+   - Design: Added #tags for each service.
+
+4. [src/components/sections/Process.tsx] (NEW)
+   - Content: 4-step workflow (Strategy, Architect, Launch, Growth).
+   - Design: Animated step counters and connectors.
+
+5. [src/components/sections/Results.tsx] (NEW)
+   - Content: Detailed case studies for 45 Degrees, Clandestine, GlobalBank, Railspeed.
+   - Design: Metric-focused display with percentage results.
+
+6. [src/components/sections/Pricing.tsx] (NEW)
+   - Content: 3-tier pricing (Launch, Scale, Enterprise) with monthly/annual toggle.
+   - Feature: Interactive 20% discount toggle logic.
+
+7. [src/components/sections/Testimonials.tsx] (NEW)
+   - Content: Real client feedback from industry leaders (Director of Ops, Head of Fraud, etc.).
+   - Design: Glassmorphism quote cards.
+
+8. [src/components/sections/Experts.tsx] (NEW)
+   - Content: Global team showcase (London, Tokyo, New York, Berlin).
+   - Design: Avatar placeholder initials with role/location badges.
+================================================================================
+
+--------------------------------------------------------------------------------
+UPDATE: 2026-05-11 | UI OVERHAUL BASED ON SCREENSHOTS (ACCURACY UPDATE)
+--------------------------------------------------------------------------------
+1. [src/components/shared/Navbar.tsx]
+   - Replicated Header: Added Jiyasys logo support, Location/Time status, and Green Contact button.
+   
+2. [src/components/sections/Hero.tsx]
+   - Replicated Layout: Swapped positions (Image on Left, Headline on Right).
+   - Added Elements: Floating "OpenAI Partner" pill and floating "Buy Template" buttons.
+   - Aesthetic: Switched to clean light background theme.
+
+3. [Asset Requirements]
+   - Files needed in /public: logo.png, hero-image.jpg.
+--------------------------------------------------------------------------------
+UPDATE: 2026-05-11 | NEWS PAGE IMPLEMENTATION & GLOBAL THEME SYNC
+--------------------------------------------------------------------------------
+1. [src/app/news/openai-partner/page.tsx] (NEW)
+   - Created full editorial news page for OpenAI Partnership.
+   - Features: Responsive sidebar, share buttons, newsletter opt-in, and detailed content.
+
+2. [src/components/sections/Hero.tsx]
+   - Connectivity: Wrapped OpenAI Partner pill in a Next.js Link for seamless navigation.
+   - Animation: Added subtle arrow motion on hover.
+
+3. [src/app/globals.css]
+   - Theme: Set global background to #F9F9F7 (Premium Off-white).
+   - Selection: Custom green selection color to match brand.
+   - Refinement: Updated glassmorphism and card effects for better visibility on light theme.
+
+4. [src/components/shared/Navbar.tsx]
+   - UI: Polished the green Contact button for better click-feel and alignment.
+--------------------------------------------------------------------------------
+UPDATE: 2026-05-11 | AI CHATBOT & THEME TOGGLE IMPLEMENTATION
+--------------------------------------------------------------------------------
+1. [src/components/shared/AIChatbot.tsx] (NEW)
+   - Created a premium floating AI chatbot widget (Bottom Right).
+   - Features: Jiyasys branding, smooth open/close animations, and customized welcome message ("Become a part of the Next Generation!").
+   - Logo: Used https://www.jiyasys.com/logo.png for bot identity.
+
+2. [src/components/shared/Navbar.tsx]
+   - UI Update: Added a smooth Theme Toggle switch (Light/Dark) in the header action group.
+   - Logo: Updated site logo to use the official https://www.jiyasys.com/logo.png URL.
+
+3. [src/app/layout.tsx]
+   - Integration: Included AIChatbot globally across all pages.
+--------------------------------------------------------------------------------
+UPDATE: 2026-05-11 | FIX: BUILD ERRORS IN NEWS PAGE SOCIAL ICONS
+--------------------------------------------------------------------------------
+1. [src/app/news/openai-partner/page.tsx]
+   - Issue: Build errors due to missing social brand icons in lucide-react.
+   - Fix: Replaced missing brand icons with stable generic icons (Send, Briefcase, Globe).
+   - Files Affected: news/openai-partner/page.tsx.
+--------------------------------------------------------------------------------
+UPDATE: 2026-05-11 | REFINED AI CHATBOT BEHAVIOR
+--------------------------------------------------------------------------------
+1. [src/components/shared/AIChatbot.tsx]
+   - Responsiveness: Adjusted height/width for better screen visibility (max-h 80vh).
+   - Interaction: Implemented "Click Outside to Close" logic using useRef and event listeners.
+   - UI: Toggle button now hides when chat is open for a cleaner look.
+   - Header: Reduced padding and icon size for a more compact, premium feel.
+--------------------------------------------------------------------------------
+UPDATE: 2026-05-11 | FUNCTIONAL THEME TOGGLE (LIGHT/DARK)
+--------------------------------------------------------------------------------
+1. [src/components/shared/Navbar.tsx]
+   - Logic: Implemented `toggleTheme` function using `useState` and `useEffect`.
+   - Persistence: Theme preference is saved to `localStorage` and respects system settings.
+   - UI: Added smooth Sun/Moon icon transitions and spring animations for the toggle switch.
+   - Logo Adaptability: Logo now uses CSS filters to remain visible and high-contrast in dark mode.
+
+2. [src/app/globals.css]
+   - Dark Mode: Added `.dark` class overrides for all primary theme variables.
+   - Transition: Added global `transition: background-color 0.5s ease` to ensure a smooth, premium feel when switching.
+================================================================================
+
+--------------------------------------------------------------------------------
+UPDATE: 2026-05-11 | CONTACT PAGE & ROLLING TEXT ANIMATION
+--------------------------------------------------------------------------------
+1. [src/app/contact/page.tsx] (NEW)
+   - Created full contact page with interactive form and info cards.
+   - Features: "Copy to Clipboard" email logic, responsive form, and social links.
+
+2. [src/components/shared/RollingLink.tsx] (NEW)
+   - UI: Implemented "Text Flip" (rolling) animation for hover states.
+   - Logic: Uses Framer Motion for smooth vertical displacement.
+
+3. [src/components/shared/Navbar.tsx]
+   - Integration: Applied RollingLink to the main "Contact" button.
+   - Styling: Standardized green background (#4ADE80) and black text as per screenshot.
+================================================================================
