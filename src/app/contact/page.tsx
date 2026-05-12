@@ -2,6 +2,7 @@
 
 import Navbar from "@/components/shared/Navbar";
 import PageTransition from "@/components/shared/Transition";
+import Link from 'next/link';
 import { Mail, Phone, MapPin, Copy, Check } from 'lucide-react';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
