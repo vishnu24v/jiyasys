@@ -65,7 +65,7 @@ export default function Navbar() {
         <div className="flex-grow" />
 
         {/* Info Section */}
-        <div className="hidden lg:flex items-center px-8 border-l border-black/10 dark:border-white/10 text-[11px] font-bold uppercase tracking-widest gap-2">
+        <div className="hidden lg:flex items-center px-8 border-l border-black/10 dark:border-white/10 text-[11px] font-bold uppercase tracking-widest gap-2 text-black dark:text-white">
           <span>London, UK</span>
           <div className="w-2 h-2 bg-[#5bfb7a] rounded-full" />
           <span>{time}</span>
@@ -76,7 +76,7 @@ export default function Navbar() {
           <div key={item} className="hidden lg:flex relative h-full border-l border-black/10 dark:border-white/10 group">
             <button 
               onClick={() => setActiveMenu(activeMenu === item ? null : item)}
-              className={`px-10 h-full flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest transition-colors ${activeMenu === item ? 'bg-black text-white' : 'hover:bg-black/5'}`}
+              className={`px-10 h-full flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest transition-colors ${activeMenu === item ? 'bg-black text-white' : 'text-black dark:text-white hover:bg-black/5'}`}
             >
               {item} <ChevronDown size={12} className={activeMenu === item ? 'rotate-180' : ''} />
             </button>
