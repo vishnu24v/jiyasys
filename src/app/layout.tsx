@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/shared/SmoothScroll";
 import CustomCursor from "@/components/shared/CustomCursor";
 import AIChatbot from "@/components/shared/AIChatbot";
+import ContactSection from "@/components/shared/ContactSection";
 import Footer from "@/components/shared/Footer";
 
 const inter = Inter({
@@ -37,6 +38,7 @@ export default function RootLayout({
           <CustomCursor />
           <AIChatbot />
           {children}
+          <ContactSection />
           <Footer />
         </SmoothScroll>
       </body>

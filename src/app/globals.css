@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Clash Grotesk";
+  src: url(https://framerusercontent.com/third-party-assets/fontshare/wf/2SAK53YLUN7RMYJU4MYLSBV6SSSJEJZB/RXS4DPGJRKOUFZMF5X5BVUGNNKJT65XZ/DJS4RYGIUYUXJQOHY5VCZPKSTXUSHTSP.woff2);
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+}
+
 :root {
   --background: #F9F9F7;
   --foreground: #1A1A1A;
