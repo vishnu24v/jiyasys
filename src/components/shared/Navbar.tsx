@@ -94,6 +94,6 @@ export default function Navbar() {
            <Menu size={24} />
         </div>
       </div>
-    </footer>
+    </nav>
   );
 }
