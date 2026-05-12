@@ -129,12 +129,5 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
-
-        {/* Mobile menu button */}
-        <div className="lg:hidden flex items-center px-6 border-l border-black/10">
-          <Menu size={24} />
-        </div>
-      </div>
-    </nav>
   );
 }
