@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, ChevronDown, MoreHorizontal, Power, Volume2, Mail, ArrowLeft, MoreVertical } from 'lucide-react';
+import { MessageSquare, X, Send, ChevronUp, MoreHorizontal, Power, Volume2, Mail, ArrowLeft, MoreVertical } from 'lucide-react';
 
 export default function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,10 +37,10 @@ export default function AIChatbot() {
   };
 
   const endChat = () => {
-    setIsOpen(false);
     setStage('list');
     setMessages([]);
     setShowEndConfirm(false);
+    setIsOpen(false);
   };
 
   return (
@@ -69,24 +69,15 @@ export default function AIChatbot() {
         dragMomentum={false}
         className="relative"
       >
-        {/* Chat Toggle Button */}
-        {!isOpen && (
-          <motion.button
-            onClick={() => { setIsOpen(true); setShowPopup(false); }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="w-16 h-16 bg-[#4a1a5a] rounded-full shadow-2xl flex items-center justify-center text-white cursor-pointer group"
-          >
-            <div className="relative">
-              <MessageSquare size={28} />
-              <div className="absolute top-0 right-0 flex gap-0.5">
-                <div className="w-1 h-1 bg-white rounded-full animate-bounce" />
-                <div className="w-1 h-1 bg-white rounded-full animate-bounce [animation-delay:0.2s]" />
-                <div className="w-1 h-1 bg-white rounded-full animate-bounce [animation-delay:0.4s]" />
-              </div>
-            </div>
-          </motion.button>
-        )}
+        {/* Toggle Button (Always Visible) */}
+        <motion.button
+          onClick={() => { setIsOpen(!isOpen); setShowPopup(false); }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="absolute bottom-0 right-0 w-16 h-16 bg-[#4a1a5a] rounded-full shadow-2xl flex items-center justify-center text-white cursor-pointer z-50"
+        >
+          {isOpen ? <ChevronUp size={28} /> : <MessageSquare size={28} />}
+        </motion.button>
 
         {/* Chat Window */}
         <AnimatePresence>
@@ -95,7 +86,7 @@ export default function AIChatbot() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="absolute bottom-0 right-0 w-[380px] h-[600px] bg-white rounded-[32px] rounded-br-none shadow-[0_20px_60px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col border border-black/5"
+              className="absolute bottom-20 right-0 w-[380px] h-[600px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col border border-black/5 rounded-l-[32px] rounded-r-none"
             >
               {/* Header - Purple */}
               <div className="p-6 bg-[#4a1a5a] text-white flex items-center justify-between">
@@ -121,9 +112,6 @@ export default function AIChatbot() {
                     </>
                   )}
                 </div>
-                <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-white/10 rounded-full">
-                  <ChevronDown size={24} />
-                </button>
               </div>
 
               {/* Body */}
